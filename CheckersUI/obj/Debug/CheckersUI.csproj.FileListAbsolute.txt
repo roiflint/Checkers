@@ -1,0 +1,10 @@
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\bin\Debug\CheckersUI.exe
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\bin\Debug\CheckersUI.pdb
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\bin\Debug\Ex02.ConsoleUtils.dll
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\bin\Debug\GameLogic.dll
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\bin\Debug\GameLogic.pdb
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\obj\Debug\CheckersUI.csprojAssemblyReference.cache
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\obj\Debug\CheckersUI.csproj.CoreCompileInputs.cache
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\obj\Debug\CheckersUI.csproj.CopyComplete
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\obj\Debug\CheckersUI.exe
+C:\Users\Roi\Desktop\CheckersUI\CheckersUI\obj\Debug\CheckersUI.pdb
