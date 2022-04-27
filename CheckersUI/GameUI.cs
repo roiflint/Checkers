@@ -134,7 +134,8 @@ namespace CheckersUI
                 }
             }
             else
-            { 
+            {
+                System.Threading.Thread.Sleep(3000);
                 m_gameAi.MakeMove(out lastCompMove);
                 playerMove = convertCompMove(lastCompMove);
             }
