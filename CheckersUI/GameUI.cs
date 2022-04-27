@@ -125,6 +125,7 @@ namespace CheckersUI
             string playerMove = string.Empty;
             bool isPlayerOne = m_gameLogic.IsFirstPlayerTurn();
             int[,] lastComputerMove;
+            bool isExit = false;
            
             if(m_isFirstRound)
             {
@@ -134,18 +135,19 @@ namespace CheckersUI
             if(isPlayerOne || m_PlayerTwo.IsHuman)
             {
                 playerMove = getPlayerMove();
-                if(playerMove[0].ToString().ToLower() == "q")
+                if(playerMove[0].ToString().ToLower() != "q")
+                {
+                    while (!isMovePlayable(playerMove))
+                    {
+                        Console.WriteLine("The move is unplayable, please try again: ");
+                        playerMove = getPlayerMove();
+                    }
+                }
+                else
                 {
                     exitRound(isPlayerOne);
-                    return;
+                    isExit = true;
                 }
-
-                while(!isMovePlayable(playerMove))
-                {
-                    Console.WriteLine("The move is unplayable, please try again: ");
-                    playerMove = getPlayerMove();
-                }
-
             }
 
             else
@@ -155,8 +157,11 @@ namespace CheckersUI
                 playerMove = convertComputerMove(lastComputerMove);
             }
 
-            printLastMadeMove(playerMove, isPlayerOne);
-            checkIfGameEnd();
+            if(!isExit)
+            {
+                printLastMadeMove(playerMove, isPlayerOne);
+                checkIfGameEnd();
+            }
         }
 
         private string convertComputerMove(int[,] i_LastCompMove)
