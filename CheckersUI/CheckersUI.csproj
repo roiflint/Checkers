@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Include="GameUI.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ex02.ConsoleUtils">

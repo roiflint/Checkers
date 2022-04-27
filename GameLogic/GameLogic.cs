@@ -18,10 +18,7 @@ namespace CheckersLogic
         public GameLogic(int i_BoardSize)
         {
             m_Board = new Board(i_BoardSize);
-            m_NumberOfPlayerOnePieces = (i_BoardSize / 2) * ((i_BoardSize - 2) / 2);
-            m_NumberOfPlayerTwoPieces = (i_BoardSize / 2) * ((i_BoardSize - 2) / 2);
-            m_TurnNumber = 1;
-            m_IsContinuesTurn = false;
+            NewGame();
         }
 
         public void NewGame()
@@ -46,11 +43,13 @@ namespace CheckersLogic
         private bool checkMoveLegalityPlayerOne(int i_FromRow, int i_FromCol, int i_ToRow, int i_ToCol, bool i_MustEat)
         {
             bool isLegal = false;
+
             if(checkValidMove(i_ToRow, i_ToCol))
             {
                 ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow, i_FromCol);
                 ePawnTypes eatenPieceSymbol = ePawnTypes.Empty;
                 ePawnTypes movedToSymbol = m_Board.GetSymbolAtLocation(i_ToRow, i_ToCol);
+
                 if(pieceSymbol != ePawnTypes.Empty && movedToSymbol == ePawnTypes.Empty)
                 {
                     if((pieceSymbol == ePawnTypes.PlayerOne || pieceSymbol == ePawnTypes.PlayerOneKing))
@@ -60,6 +59,7 @@ namespace CheckersLogic
                         {
                             isLegal = true;
                         }
+
                         else if(i_FromRow - 2 == i_ToRow)
                         {
                             if(i_FromCol + 2 == i_ToCol)
@@ -70,7 +70,9 @@ namespace CheckersLogic
                                 {
                                     isLegal = true;
                                 }
+
                             }
+
                             else if(i_FromCol - 2 == i_ToCol)
                             {
                                 eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol - 1);
@@ -79,8 +81,11 @@ namespace CheckersLogic
                                 {
                                     isLegal = true;
                                 }
+
                             }
+
                         }
+
                         else if(pieceSymbol == ePawnTypes.PlayerOneKing)
                         {
                             if(i_FromRow + 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
@@ -88,6 +93,7 @@ namespace CheckersLogic
                             {
                                 isLegal = true;
                             }
+
                             else if(i_FromRow + 2 == i_ToRow)
                             {
                                 if(i_FromCol + 2 == i_ToCol)
@@ -98,7 +104,9 @@ namespace CheckersLogic
                                     {
                                         isLegal = true;
                                     }
+
                                 }
+
                                 else if(i_FromCol - 2 == i_ToCol)
                                 {
                                     eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow + 1, i_FromCol - 1);
@@ -107,12 +115,19 @@ namespace CheckersLogic
                                     {
                                         isLegal = true;
                                     }
+
                                 }
+
                             }
+
                         }
+
                     }
+
                 }
+
             }
+
 
             return isLegal;
         }
@@ -120,11 +135,14 @@ namespace CheckersLogic
         public bool CheckMoveLegalityPlayerTwo(int i_FromRow, int i_FromCol, int i_ToRow, int i_ToCol, bool i_MustEat)
         {
             bool isLegal = false;
+
             if(checkValidMove(i_ToRow, i_ToCol))
             {
                 ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow, i_FromCol);
                 ePawnTypes eatenPieceSymbol = ePawnTypes.Empty;
-                if(pieceSymbol != ePawnTypes.Empty && m_Board.GetSymbolAtLocation(i_ToRow, i_ToCol) == ePawnTypes.Empty)
+                ePawnTypes movedToSymbol = m_Board.GetSymbolAtLocation(i_ToRow, i_ToCol);
+
+                if (pieceSymbol != ePawnTypes.Empty && movedToSymbol == ePawnTypes.Empty)
                 {
                     if((pieceSymbol == ePawnTypes.PlayerTwo || pieceSymbol == ePawnTypes.PlayerTwoKing))
                     {
@@ -133,6 +151,7 @@ namespace CheckersLogic
                         {
                             isLegal = true;
                         }
+
                         else if(i_FromRow + 2 == i_ToRow)
                         {
                             if(i_FromCol + 2 == i_ToCol)
@@ -143,7 +162,9 @@ namespace CheckersLogic
                                 {
                                     isLegal = true;
                                 }
+
                             }
+
                             else if(i_FromCol - 2 == i_ToCol)
                             {
                                 eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow + 1, i_FromCol - 1);
@@ -152,38 +173,51 @@ namespace CheckersLogic
                                 {
                                     isLegal = true;
                                 }
+
                             }
-                        }
-                    }
-                    else if(pieceSymbol == ePawnTypes.PlayerTwoKing)
-                    {
-                        if(i_FromRow - 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
-                                                    && !i_MustEat)
-                        {
-                            isLegal = true;
-                        }
-                        else if(i_FromRow - 2 == i_ToRow)
-                        {
-                            if(i_FromCol + 2 == i_ToCol)
+
+                            else if (pieceSymbol == ePawnTypes.PlayerTwoKing)
                             {
-                                eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol + 1);
-                                if(eatenPieceSymbol == ePawnTypes.PlayerOne
-                                   || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
+                                if (i_FromRow - 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
+                                                             && !i_MustEat)
                                 {
                                     isLegal = true;
                                 }
-                            }
-                            else if(i_FromCol - 2 == i_ToCol)
-                            {
-                                eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol - 1);
-                                if(eatenPieceSymbol == ePawnTypes.PlayerOne
-                                   || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
+
+                                else if (i_FromRow - 2 == i_ToRow)
                                 {
-                                    isLegal = true;
+                                    if (i_FromCol + 2 == i_ToCol)
+                                    {
+                                        eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol + 1);
+                                        if (eatenPieceSymbol == ePawnTypes.PlayerOne
+                                            || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
+                                        {
+                                            isLegal = true;
+                                        }
+
+                                    }
+
+                                    else if (i_FromCol - 2 == i_ToCol)
+                                    {
+                                        eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol - 1);
+                                        if (eatenPieceSymbol == ePawnTypes.PlayerOne
+                                            || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
+                                        {
+                                            isLegal = true;
+                                        }
+
+                                    }
+
                                 }
+
                             }
+
+
                         }
+
                     }
+
+                    
                 }
             }
 
@@ -193,22 +227,27 @@ namespace CheckersLogic
         private void checkAndCrownPiece(int i_Row, int i_Col)
         {
             ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(i_Row, i_Col);
+
             if (pieceSymbol != ePawnTypes.Empty)
             {
                 if (pieceSymbol == ePawnTypes.PlayerOne && i_Row == 0)
                 {
                     m_Board.SetSymbolAtLocation(i_Row, i_Col, ePawnTypes.PlayerOneKing);
                 }
+
                 else if (pieceSymbol == ePawnTypes.PlayerTwo && i_Row == m_Board.GetBoardSize() - 1)
                 {
                     m_Board.SetSymbolAtLocation(i_Row, i_Col, ePawnTypes.PlayerTwoKing);
                 }
+
             }
+
         }
 
         private bool checkAndEatPiece(int i_FromRow, int i_FromCol, int i_ToRow, int i_ToCol)
         {
             bool wasEaten = false;
+
             if(i_FromRow == i_ToRow + 2)
             {
                 if (i_FromCol == i_ToCol + 2)
@@ -216,12 +255,15 @@ namespace CheckersLogic
                     m_Board.SetSymbolAtLocation(i_ToRow + 1, i_ToCol + 1, ePawnTypes.Empty);
                     wasEaten = true;
                 }
+
                 else if (i_FromCol == i_ToCol - 2)
                 {
                     m_Board.SetSymbolAtLocation(i_ToRow + 1, i_ToCol - 1, ePawnTypes.Empty);
                     wasEaten = true;
                 }
+
             }
+
             else if(i_FromRow == i_ToRow - 2)
             {
                 if (i_FromCol == i_ToCol + 2)
@@ -229,11 +271,13 @@ namespace CheckersLogic
                     m_Board.SetSymbolAtLocation(i_ToRow - 1, i_ToCol + 1, ePawnTypes.Empty);
                     wasEaten = true;
                 }
+
                 else if (i_FromCol == i_ToCol - 2)
                 {
                     m_Board.SetSymbolAtLocation(i_ToRow - 1, i_ToCol - 1, ePawnTypes.Empty);
                     wasEaten = true;
                 }
+
             }
 
             return wasEaten;
@@ -243,6 +287,7 @@ namespace CheckersLogic
         {
             bool isLegal = false;
             bool wasEaten = false;
+
             if(IsFirstPlayerTurn())
             {
                 if(checkMoveLegalityPlayerOne(i_FromRow, i_FromCol, i_ToRow, i_ToCol, m_IsContinuesTurn))
@@ -252,11 +297,14 @@ namespace CheckersLogic
                         m_NumberOfPlayerTwoPieces--;
                         wasEaten = true;
                     }
+
                     m_Board.MovePiece(i_FromRow, i_FromCol, i_ToRow, i_ToCol);
                     checkAndCrownPiece(i_ToRow, i_ToCol);
                     isLegal = true;
                 }
+
             }
+
             else if(CheckMoveLegalityPlayerTwo(i_FromRow, i_FromCol, i_ToRow, i_ToCol, m_IsContinuesTurn))
             {
                 if (checkAndEatPiece(i_FromRow, i_FromCol, i_ToRow, i_ToCol))
@@ -264,6 +312,7 @@ namespace CheckersLogic
                     m_NumberOfPlayerOnePieces--;
                     wasEaten = true;
                 }
+
                 m_Board.MovePiece(i_FromRow, i_FromCol, i_ToRow, i_ToCol);
                 checkAndCrownPiece(i_ToRow, i_ToCol);
                 isLegal = true;
@@ -278,6 +327,7 @@ namespace CheckersLogic
                     {
                         GetAllValidEatingMovesPlayerOne(i_ToRow, i_ToCol, true, out numberOfMoves);
                     }
+
                     else
                     {
                         GetAllValidEatingMovesPlayerTwo(i_ToRow, i_ToCol, true, out numberOfMoves);
@@ -287,12 +337,15 @@ namespace CheckersLogic
                     {
                         m_IsContinuesTurn = true;
                     }
+
                     else
                     {
                         m_TurnNumber++;
                         m_IsContinuesTurn = false;
                     }
+
                 }
+
                 else
                 {
                     m_TurnNumber++;
@@ -319,6 +372,7 @@ namespace CheckersLogic
         {
             bool isTie = true;
             int boardSize = m_Board.GetBoardSize();
+
             for (int i = 0; i < boardSize && isTie; i++)
             {
                 for(int j = 0; j < boardSize && isTie; j++)
@@ -329,6 +383,7 @@ namespace CheckersLogic
                     }
                 }
             }
+
             return isTie;
         }
 
@@ -343,6 +398,7 @@ namespace CheckersLogic
         {
             bool ableToMove = true;
             ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(i_Row, i_Col);
+
             if (pieceSymbol == ePawnTypes.PlayerOne || pieceSymbol == ePawnTypes.PlayerOneKing)
             {
                 if(!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 1, i_Col - 1, false))
@@ -406,12 +462,7 @@ namespace CheckersLogic
 
             return ableToMove;
         }
-
-        public int GetTurnNumber()
-        {
-            return m_TurnNumber;
-        }
-
+        
         public bool IsFirstPlayerTurn()
         {
             return (m_TurnNumber % 2 == 1) ? true : false;
@@ -423,6 +474,7 @@ namespace CheckersLogic
                        ? m_NumberOfPlayerOnePieces
                        : m_NumberOfPlayerTwoPieces;
         }
+
         public int GetNumberOfPiecesLeftPlayerOne()
         {
             return m_NumberOfPlayerOnePieces;
@@ -437,6 +489,7 @@ namespace CheckersLogic
         {
             int count = 0;
             int[,] validMoves = new int[4, 2];
+
             if(m_Board.GetSymbolAtLocation(i_Row, i_Col) == ePawnTypes.PlayerOneKing)
             {
                 if(checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col + 2, i_MustEat))
@@ -460,6 +513,7 @@ namespace CheckersLogic
                 validMoves[count, 1] = i_Col + 2;
                 count++;
             }
+
             if (checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 2, i_Col - 2, i_MustEat))
             {
                 validMoves[count, 0] = i_Row - 2;
@@ -470,16 +524,19 @@ namespace CheckersLogic
             o_NumberOfMoves = count;
             return validMoves;
         }
+        
         public int[,] GetAllValidEatingMovesPlayerTwo(int i_Row, int i_Col, bool i_MustEat ,out int o_NumberOfMoves)
         {
             int count = 0;
             int[,] validMoves = new int[4, 2];
+
             if (CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 2, i_Col + 2, i_MustEat))
             {
                 validMoves[count, 0] = i_Row + 2;
                 validMoves[count, 1] = i_Col + 2;
                 count++;
             }
+
             if (CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 2, i_Col - 2, i_MustEat))
             {
                 validMoves[count, 0] = i_Row + 2;

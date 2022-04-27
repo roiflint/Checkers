@@ -37,3 +37,13 @@ C:\Users\Roi\Desktop\projects\C#\Checkers\CheckersUI\obj\Debug\CheckersUI.csproj
 C:\Users\Roi\Desktop\projects\C#\Checkers\CheckersUI\obj\Debug\CheckersUI.csproj.CopyComplete
 C:\Users\Roi\Desktop\projects\C#\Checkers\CheckersUI\obj\Debug\CheckersUI.exe
 C:\Users\Roi\Desktop\projects\C#\Checkers\CheckersUI\obj\Debug\CheckersUI.pdb
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\bin\Debug\CheckersUI.exe
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\bin\Debug\CheckersUI.pdb
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\bin\Debug\Ex02.ConsoleUtils.dll
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\bin\Debug\GameLogic.dll
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\bin\Debug\GameLogic.pdb
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\obj\Debug\CheckersUI.csproj.AssemblyReference.cache
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\obj\Debug\CheckersUI.csproj.CoreCompileInputs.cache
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\obj\Debug\CheckersUI.csproj.CopyComplete
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\obj\Debug\CheckersUI.exe
+C:\Users\dalin\Documents\GitHub\Checkers\CheckersUI\obj\Debug\CheckersUI.pdb

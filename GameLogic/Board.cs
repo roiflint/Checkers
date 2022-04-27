@@ -14,12 +14,7 @@ namespace CheckersLogic
         {
             m_BoardSize = i_BoardSize;
             m_Board = new ePawnTypes[m_BoardSize, m_BoardSize];
-            //m_Board = new ePawnTypes[6, 6] { { ePawnTypes.Empty ,ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo},
-            //                                   { ePawnTypes.PlayerTwo , ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty},
-            //                                   { ePawnTypes.Empty , ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne},
-            //                                   { ePawnTypes.Empty , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty},
-            //                                   { ePawnTypes.Empty , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne},
-            //                                   { ePawnTypes.PlayerOne , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty}};
+            
             InitBoard();
         }
 
@@ -28,6 +23,7 @@ namespace CheckersLogic
             int numberOfStartingRows = m_BoardSize - 2;
             int numberOfRowsPerPlayer = numberOfStartingRows / 2;
             ePawnTypes piece = ePawnTypes.PlayerTwo;
+
             for(int i = 0; i < m_BoardSize; i++)
             {
                 for(int j = 0; j < m_BoardSize; j++)
@@ -36,6 +32,7 @@ namespace CheckersLogic
                     {
                         m_Board[i, j] = piece;
                     }
+
                     else
                     {
                         m_Board[i, j] = ePawnTypes.Empty;
