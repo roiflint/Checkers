@@ -176,42 +176,40 @@ namespace CheckersLogic
 
                             }
 
-                            else if (pieceSymbol == ePawnTypes.PlayerTwoKing)
+                        }
+                        else if (pieceSymbol == ePawnTypes.PlayerTwoKing)
+                        {
+                            if (i_FromRow - 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
+                                                         && !i_MustEat)
                             {
-                                if (i_FromRow - 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
-                                                             && !i_MustEat)
-                                {
-                                    isLegal = true;
-                                }
+                                isLegal = true;
+                            }
 
-                                else if (i_FromRow - 2 == i_ToRow)
+                            else if (i_FromRow - 2 == i_ToRow)
+                            {
+                                if (i_FromCol + 2 == i_ToCol)
                                 {
-                                    if (i_FromCol + 2 == i_ToCol)
+                                    eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol + 1);
+                                    if (eatenPieceSymbol == ePawnTypes.PlayerOne
+                                        || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
                                     {
-                                        eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol + 1);
-                                        if (eatenPieceSymbol == ePawnTypes.PlayerOne
-                                            || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
-                                        {
-                                            isLegal = true;
-                                        }
-
+                                        isLegal = true;
                                     }
 
-                                    else if (i_FromCol - 2 == i_ToCol)
-                                    {
-                                        eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol - 1);
-                                        if (eatenPieceSymbol == ePawnTypes.PlayerOne
-                                            || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
-                                        {
-                                            isLegal = true;
-                                        }
+                                }
 
+                                else if (i_FromCol - 2 == i_ToCol)
+                                {
+                                    eatenPieceSymbol = m_Board.GetSymbolAtLocation(i_FromRow - 1, i_FromCol - 1);
+                                    if (eatenPieceSymbol == ePawnTypes.PlayerOne
+                                        || eatenPieceSymbol == ePawnTypes.PlayerOneKing)
+                                    {
+                                        isLegal = true;
                                     }
 
                                 }
 
                             }
-
 
                         }
 
