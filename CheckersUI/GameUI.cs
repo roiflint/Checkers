@@ -322,13 +322,8 @@ namespace CheckersUI
                 isValid = true;
             }
 
-            else if(i_UserInput.Length == 5)
+            else if(i_UserInput.Length == 5 && i_UserInput.Contains('>'))
             {
-                if(!i_UserInput.Contains('>'))
-                {
-                    isValid = false;
-                }
-
                 for(int i = 0; i < i_UserInput.Length; i++)
                 {
                     if(i == 0 || i == 3)
