@@ -14,14 +14,13 @@ namespace CheckersLogic
         public AI(ref GameLogic i_GameLogic)
         {
             m_GameLogic = i_GameLogic;
-            m_LastRow = 0;
-            m_LastCol = 1;
+            InitAI();
         }
 
         public void InitAI()
         {
-            m_LastRow = 0;
-            m_LastCol = 1;
+            m_LastRow = ((m_GameLogic.GetBoardSize() - 2) / 2) - 1;
+            m_LastCol = 0;
         }
 
         private int[,] getAllPiecesAbleToMove(out int o_NumberOfPieces)
@@ -136,45 +135,35 @@ namespace CheckersLogic
             return randomMove;
         }
 
-        public bool MakeMove(int i_Row, int i_Col, bool i_MustEat, out bool o_WasEaten)
+        public bool MakeMove(out int[,] o_ChosenMove)
         {
-            bool wasEaten = false;
-            if (i_MustEat)
-            {
-                int[,] eatMoves = m_GameLogic.GetAllValidEatingMovesPlayerTwo(i_Row, i_Col, i_MustEat, out int numberOfMoves);
-                if(numberOfMoves != 0)
-                {
-                    Random random = new Random();
-                    int randomEatingMove = random.Next(numberOfMoves);
-                    m_GameLogic.CheckAndMove(i_Row, i_Col, eatMoves[randomEatingMove, 0], eatMoves[randomEatingMove, 1]);
-                    m_LastRow = eatMoves[randomEatingMove, 0];
-                    m_LastCol = eatMoves[randomEatingMove, 1];
-                    o_WasEaten = true;
-                    return true;
-                }
-                else
-                {
-                    o_WasEaten = false;
-                    return false;
-                }
-
-            }
             bool success = false;
-            int[,] pieces = getAllPiecesAbleToMove(out int numberOfPiecesAbleToMove);
+            int[,] pieces;
+            int numberOfPiecesAbleToMove = 0;
+            o_ChosenMove = new int[2,2];
+            if(m_GameLogic.GetIsContinuesTurn())
+            {
+                pieces = new int[1, 2] { { m_LastRow, m_LastCol } };
+                m_GameLogic.GetAllValidEatingMovesPlayerTwo(m_LastRow, m_LastCol, true, out numberOfPiecesAbleToMove);
+            }
+            else
+            {
+                pieces = getAllPiecesAbleToMove(out numberOfPiecesAbleToMove);
+            }
+            
             if(numberOfPiecesAbleToMove != 0)
             {
-                int[,] move = getRandomMove(pieces, numberOfPiecesAbleToMove, false);
+                int[,] move = getRandomMove(pieces, numberOfPiecesAbleToMove, m_GameLogic.GetIsContinuesTurn());
+                o_ChosenMove = move;
                 if(m_GameLogic.CheckAndMove(move[0,0], move[0,1], move[1,0], move[1,1]))
                 {
                     m_LastRow = move[1, 0];
                     m_LastCol = move[1, 1];
-                    o_WasEaten = wasEaten;
 
                     return true;
                 }
             }
 
-            o_WasEaten = wasEaten;
             return false;
         }
 

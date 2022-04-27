@@ -81,7 +81,7 @@ namespace CheckersLogic
                                 }
                             }
                         }
-                        else if(pieceSymbol == ePawnTypes.PlayerOneKing || i_MustEat)
+                        else if(pieceSymbol == ePawnTypes.PlayerOneKing)
                         {
                             if(i_FromRow + 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
                                                         && !i_MustEat)
@@ -155,7 +155,7 @@ namespace CheckersLogic
                             }
                         }
                     }
-                    else if(pieceSymbol == ePawnTypes.PlayerTwoKing || i_MustEat)
+                    else if(pieceSymbol == ePawnTypes.PlayerTwoKing)
                     {
                         if(i_FromRow - 1 == i_ToRow && (i_FromCol + 1 == i_ToCol || i_FromCol - 1 == i_ToCol)
                                                     && !i_MustEat)
@@ -269,11 +269,20 @@ namespace CheckersLogic
                 isLegal = true;
             }
 
-            if(isLegal)
+            if(isLegal) 
             {
                 if(wasEaten)
                 {
-                    GetAllValidEatingMovesPlayerOne(i_ToRow, i_ToCol, true, out int numberOfMoves);
+                    int numberOfMoves = 0;
+                    if (IsFirstPlayerTurn())
+                    {
+                        GetAllValidEatingMovesPlayerOne(i_ToRow, i_ToCol, true, out numberOfMoves);
+                    }
+                    else
+                    {
+                        GetAllValidEatingMovesPlayerTwo(i_ToRow, i_ToCol, true, out numberOfMoves);
+                    }
+                    
                     if(numberOfMoves != 0)
                     {
                         m_IsContinuesTurn = true;
@@ -292,7 +301,7 @@ namespace CheckersLogic
                 
             }
 
-            m_IsContinuesTurn = wasEaten; 
+            
             return isLegal;
         }
 
@@ -330,27 +339,27 @@ namespace CheckersLogic
             return isValid;
         }
 
-        public bool IsAbleToMove(int row, int col)
+        public bool IsAbleToMove(int i_Row, int i_Col)
         {
             bool ableToMove = true;
-            ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(row, col);
+            ePawnTypes pieceSymbol = m_Board.GetSymbolAtLocation(i_Row, i_Col);
             if (pieceSymbol == ePawnTypes.PlayerOne || pieceSymbol == ePawnTypes.PlayerOneKing)
             {
-                if(!checkMoveLegalityPlayerOne(row, col, row - 1, col - 1, false))
+                if(!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 1, i_Col - 1, false))
                 {
-                    if (!checkMoveLegalityPlayerOne(row, col, row - 1, col + 1, false))
+                    if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 1, i_Col + 1, false))
                     {
-                        if (!checkMoveLegalityPlayerOne(row, col, row + 1, col - 1, false))
+                        if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 1, i_Col - 1, false))
                         {
-                            if (!checkMoveLegalityPlayerOne(row, col, row + 1, col + 1, false))
+                            if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 1, i_Col + 1, false))
                             {
-                                if (!checkMoveLegalityPlayerOne(row, col, row - 2, col - 2, false))
+                                if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 2, i_Col - 2, false))
                                 {
-                                    if (!checkMoveLegalityPlayerOne(row, col, row - 2, col + 2, false))
+                                    if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 2, i_Col + 2, false))
                                     {
-                                        if (!checkMoveLegalityPlayerOne(row, col, row + 2, col - 2, false))
+                                        if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col - 2, false))
                                         {
-                                            if (!checkMoveLegalityPlayerOne(row, col, row + 2, col + 2, false))
+                                            if (!checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col + 2, false))
                                             {
                                                 ableToMove = false;
                                             }
@@ -364,21 +373,21 @@ namespace CheckersLogic
             }
             else if (pieceSymbol == ePawnTypes.PlayerTwo || pieceSymbol == ePawnTypes.PlayerTwoKing)
             {
-                if (!CheckMoveLegalityPlayerTwo(row, col, row - 1, col - 1, false))
+                if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 1, i_Col - 1, false))
                 {
-                    if (!CheckMoveLegalityPlayerTwo(row, col, row - 1, col + 1, false))
+                    if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 1, i_Col + 1, false))
                     {
-                        if (!CheckMoveLegalityPlayerTwo(row, col, row + 1, col - 1, false))
+                        if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 1, i_Col - 1, false))
                         {
-                            if (!CheckMoveLegalityPlayerTwo(row, col, row + 1, col + 1, false))
+                            if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 1, i_Col + 1, false))
                             {
-                                if (!CheckMoveLegalityPlayerTwo(row, col, row - 2, col - 2, false))
+                                if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col - 2, false))
                                 {
-                                    if (!CheckMoveLegalityPlayerTwo(row, col, row - 2, col + 2, false))
+                                    if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col + 2, false))
                                     {
-                                        if (!CheckMoveLegalityPlayerTwo(row, col, row + 2, col - 2, false))
+                                        if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 2, i_Col - 2, false))
                                         {
-                                            if (!CheckMoveLegalityPlayerTwo(row, col, row + 2, col + 2, false))
+                                            if (!CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row + 2, i_Col + 2, false))
                                             {
                                                 ableToMove = false;
                                             }
@@ -428,18 +437,23 @@ namespace CheckersLogic
         {
             int count = 0;
             int[,] validMoves = new int[4, 2];
-            if (checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col + 2, i_MustEat))
+            if(m_Board.GetSymbolAtLocation(i_Row, i_Col) == ePawnTypes.PlayerOneKing)
             {
-                validMoves[count, 0] = i_Row + 2;
-                validMoves[count, 1] = i_Col + 2;
-                count++;
+                if(checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col + 2, i_MustEat))
+                {
+                    validMoves[count, 0] = i_Row + 2;
+                    validMoves[count, 1] = i_Col + 2;
+                    count++;
+                }
+
+                if(checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col - 2, i_MustEat))
+                {
+                    validMoves[count, 0] = i_Row + 2;
+                    validMoves[count, 1] = i_Col - 2;
+                    count++;
+                }
             }
-            if (checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row + 2, i_Col - 2, i_MustEat))
-            {
-                validMoves[count, 0] = i_Row + 2;
-                validMoves[count, 1] = i_Col - 2;
-                count++;
-            }
+
             if (checkMoveLegalityPlayerOne(i_Row, i_Col, i_Row - 2, i_Col + 2, i_MustEat))
             {
                 validMoves[count, 0] = i_Row - 2;
@@ -472,21 +486,36 @@ namespace CheckersLogic
                 validMoves[count, 1] = i_Col - 2;
                 count++;
             }
-            if (CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col + 2, i_MustEat))
+
+            if(m_Board.GetSymbolAtLocation(i_Row, i_Col) == ePawnTypes.PlayerTwoKing)
             {
-                validMoves[count, 0] = i_Row - 2;
-                validMoves[count, 1] = i_Col + 2;
-                count++;
-            }
-            if (CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col - 2, i_MustEat))
-            {
-                validMoves[count, 0] = i_Row - 2;
-                validMoves[count, 1] = i_Col - 2;
-                count++;
+                if(CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col + 2, i_MustEat))
+                {
+                    validMoves[count, 0] = i_Row - 2;
+                    validMoves[count, 1] = i_Col + 2;
+                    count++;
+                }
+
+                if(CheckMoveLegalityPlayerTwo(i_Row, i_Col, i_Row - 2, i_Col - 2, i_MustEat))
+                {
+                    validMoves[count, 0] = i_Row - 2;
+                    validMoves[count, 1] = i_Col - 2;
+                    count++;
+                }
             }
 
             o_NumberOfMoves = count;
             return validMoves;
+        }
+
+        public bool GetIsContinuesTurn()
+        {
+            return m_IsContinuesTurn;
+        }
+
+        public void SetIsContinuesTurn(bool i_isContinuesTurn)
+        {
+            m_IsContinuesTurn = i_isContinuesTurn;
         }
     }
 }

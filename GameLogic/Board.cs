@@ -14,6 +14,12 @@ namespace CheckersLogic
         {
             m_BoardSize = i_BoardSize;
             m_Board = new ePawnTypes[m_BoardSize, m_BoardSize];
+            /*m_Board = new ePawnTypes[6, 6] { { ePawnTypes.Empty ,ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo},
+                                               { ePawnTypes.PlayerTwo , ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty, ePawnTypes.PlayerTwo, ePawnTypes.Empty},
+                                               { ePawnTypes.Empty , ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne},
+                                               { ePawnTypes.Empty , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty},
+                                               { ePawnTypes.Empty , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.PlayerOne, ePawnTypes.Empty, ePawnTypes.PlayerOne},
+                                               { ePawnTypes.PlayerOne , ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty, ePawnTypes.Empty}};*/
             InitBoard();
         }
 

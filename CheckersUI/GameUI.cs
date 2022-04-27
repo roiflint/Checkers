@@ -115,6 +115,7 @@ namespace CheckersUI
         {
             string playerMove = string.Empty;
             bool isPlayerOne = m_gameLogic.IsFirstPlayerTurn();
+            int[,] lastCompMove;
            
             if(m_isFirstRound)
             {
@@ -124,7 +125,7 @@ namespace CheckersUI
             if(isPlayerOne || m_PlayerTwo.IsHuman)
             {
                 playerMove = getPlayerMove();
-                if (playerMove[0] == 'Q') //make q legal move in logic and do as needed 
+                if (playerMove[0] == 'Q') 
                     exitRound(isPlayerOne);
                 while(!isMovePlayable(playerMove))
                 {
@@ -133,14 +134,25 @@ namespace CheckersUI
                 }
             }
             else
-            {
-                //m_gameAi.MakeMove();
+            { 
+                m_gameAi.MakeMove(out lastCompMove);
+                playerMove = convertCompMove(lastCompMove);
             }
 
             printLastMadeMove(playerMove, isPlayerOne);
             checkIfGameEnd();
         }
 
+        private string convertCompMove(int[,] i_LastCompMove)
+        {
+            StringBuilder computerMove = new StringBuilder();
+            computerMove.Append((char)('A' + i_LastCompMove[0, 1]));
+            computerMove.Append((char)('a' + i_LastCompMove[0, 0]));
+            computerMove.Append('>');
+            computerMove.Append((char)('A' + i_LastCompMove[1, 1]));
+            computerMove.Append((char)('a' + i_LastCompMove[1, 0]));
+            return computerMove.ToString();
+        }
         private void checkIfGameEnd()
         {
             Player winningPlayer = null;
@@ -205,6 +217,8 @@ namespace CheckersUI
             {
                 IsGameOver = false;
                 m_gameLogic.NewGame();
+                m_gameAi.InitAI();
+                m_isFirstRound = true;
                 PlayRound();
             }
             else
